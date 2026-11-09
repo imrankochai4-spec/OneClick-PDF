@@ -1,0 +1,55 @@
+name: Build OneClick Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Extract OneClick-Complete-Project.zip if folders missing
+        run: |
+          if [ -f "OneClick-Complete-Project.zip" ] && [ ! 
+
+-d "public" ]; then
+            unzip -o OneClick-Complete-Project.zip
+          fi
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Generate Full Android Project & Sync Web Assets
+        run: |
+          npm install
+          rm -rf android
+          npx cap add android
+          npx cap sync android
+
+      - name: Build Debug APK
+        working-directory: ./android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Upload OneClick APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: OneClick-Android-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+
