@@ -189,13 +189,15 @@ class OneClickApp {
   _populateHeroDropdown() {
     if (!this.heroToolSelect) return;
     this.heroToolSelect.innerHTML = '';
+    const fragment = document.createDocumentFragment();
     for (const tool of ONECLICK_TOOLS) {
       const opt = document.createElement('option');
       opt.value = tool.id;
       opt.textContent = `${tool.title} (${tool.from || 'FILE'} → ${tool.to || 'OUT'}) — ${tool.desc.slice(0, 48)}`;
       if (tool.id === this.activeTool) opt.selected = true;
-      this.heroToolSelect.appendChild(opt);
+      fragment.appendChild(opt);
     }
+    this.heroToolSelect.appendChild(fragment);
   }
 
   _buildDualIconHtml(tool) {
@@ -214,33 +216,28 @@ class OneClickApp {
     const cfg = MEGA_MENU_CONFIG[catKey];
     if (!cfg || !this.megaMenuPanel) return;
 
-    this.megaCatTitle.textContent = cfg.title;
-    this.megaCatDesc.textContent = cfg.desc;
-    this.megaFooterCount.textContent = cfg.countText;
+    if (this._lastMegaKey !== catKey) {
+      this._lastMegaKey = catKey;
+      this.megaCatTitle.textContent = cfg.title;
+      this.megaCatDesc.textContent = cfg.desc;
+      this.megaFooterCount.textContent = cfg.countText;
 
-    const renderMiniBtn = (toolId) => {
-      const t = ONECLICK_TOOLS.find((x) => x.id === toolId);
-      if (!t) return '';
-      return `
-        <button type="button" class="mega-tool-btn" data-mega-pick="${t.id}">
-          ${this._buildDualIconHtml(t)}
-          <span>${t.title}</span>
-        </button>
-      `;
-    };
+      const renderMiniBtn = (toolId) => {
+        const t = ONECLICK_TOOLS.find((x) => x.id === toolId);
+        if (!t) return '';
+        return `
+          <button type="button" class="mega-tool-btn" data-mega-pick="${t.id}">
+            ${this._buildDualIconHtml(t)}
+            <span>${t.title}</span>
+          </button>
+        `;
+      };
 
-    this.megaFeaturedList.innerHTML = cfg.featured.map(renderMiniBtn).join('');
-    this.megaPopularCols.innerHTML = cfg.popular.map(renderMiniBtn).join('');
+      this.megaFeaturedList.innerHTML = cfg.featured.map(renderMiniBtn).join('');
+      this.megaPopularCols.innerHTML = cfg.popular.map(renderMiniBtn).join('');
+    }
+
     this.megaMenuPanel.classList.add('open');
-
-    this.megaMenuPanel.querySelectorAll('[data-mega-pick]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-mega-pick');
-        this.megaMenuPanel.classList.remove('open');
-        this.switchTool(id);
-        document.getElementById('studioWorkspace')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
 
     if (this.megaViewAllBtn) {
       this.megaViewAllBtn.onclick = () => {
@@ -325,16 +322,27 @@ class OneClickApp {
           <div class="tool-card-desc">${tool.desc}</div>
         </div>
       `;
-      btn.addEventListener('click', () => {
-        this.switchTool(tool.id);
-        document.getElementById('studioWorkspace')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
       fragment.appendChild(btn);
     }
     this.toolsGrid.appendChild(fragment);
   }
 
   _bindEvents() {
+    this.toolsGrid?.addEventListener('click', (e) => {
+      const card = e.target.closest('.tool-card[data-tool]');
+      if (!card) return;
+      this.switchTool(card.dataset.tool);
+      document.getElementById('studioWorkspace')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    this.megaMenuPanel?.addEventListener('click', (e) => {
+      const pick = e.target.closest('[data-mega-pick]');
+      if (!pick) return;
+      const id = pick.getAttribute('data-mega-pick');
+      this.megaMenuPanel.classList.remove('open');
+      this.switchTool(id);
+      document.getElementById('studioWorkspace')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
     this.themeToggleBtn?.addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme');
       const next = current === 'dark' ? 'light' : 'dark';
@@ -729,7 +737,7 @@ class OneClickApp {
     }
 
     const link = document.createElement('a');
-    link.href = './downloads/OneClick-Windows-Desktop.hta';
+    link.href = './OneClick-Windows-Desktop.hta';
     link.download = 'AllOnlinePDFTools-Desktop.hta';
     document.body.appendChild(link);
     link.click();
@@ -1977,6 +1985,9 @@ class OneClickApp {
         const images = await this.pdfEngine.pdfToImages(activePdfItems, { format, scale: 2.0 }, (p, s) =>
           this._setProgress(p, s)
         );
+        if (!images || images.length === 0) {
+          throw new Error('Could not render PDF pages as images. Please ensure your PDF has valid pages.');
+        }
         this.lastOutputData = images[0].blob;
         this.lastOutputName = images[0].fileName;
         this.lastOutputMime = format;
