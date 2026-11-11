@@ -2,8 +2,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.emerald.pdftoolkit',
-  appName: 'Emerald PDF Toolkit',
+  appId: 'com.oneclick.suite',
+  appName: 'OneClick',
   webDir: 'public',
   bundledWebRuntime: false,
   server: {
