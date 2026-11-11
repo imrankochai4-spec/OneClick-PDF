@@ -1,7 +1,7 @@
 {
-  "name": "emerald-pdf-toolkit",
-  "version": "1.0.0",
-  "description": "100% Client-Side Ultra-Fast PDF Toolkit (PWA, Android, iOS)",
+  "name": "oneclick-suite",
+  "version": "3.0.0",
+  "description": "OneClick — 100+ Free Client-Side PDF, Image, Calculator & Daily Utility Tools (PWA, Android, iOS, Desktop)",
   "private": true,
   "scripts": {
     "start": "npx serve public -l 3000",
