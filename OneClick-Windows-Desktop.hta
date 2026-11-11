@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>OneClick Desktop Installer & Launcher</title>
+  <HTA:APPLICATION
+    ID="OneClickDesktop"
+    APPLICATIONNAME="OneClick"
+    BORDER="thin"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    SHOWINTASKBAR="yes"
+    SINGLEINSTANCE="yes"
+    SYSMENU="yes"
+    WINDOWSTATE="normal"
+  />
+  <script language="VBScript">
+    Sub Window_OnLoad
+      Dim sh
+      Set sh = CreateObject("WScript.Shell")
+      sh.Run "cmd /c start msedge --app=http://localhost:3000 || start chrome --app=http://localhost:3000 || start http://localhost:3000", 0, False
+      window.close()
+    End Sub
+  </script>
+</head>
+<body style="background:#064e3b;color:#fff;font-family:sans-serif;text-align:center;padding:40px;">
+  <h2>Launching OneClick Desktop App...</h2>
+</body>
+</html>
