@@ -1,5 +1,5 @@
 // File: public/sw.js
-const CACHE_VERSION = 'oneclick-v9.5.1';
+const CACHE_VERSION = 'oneclick-v9.8.0';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const CDN_CACHE = `${CACHE_VERSION}-cdn`;
 
@@ -7,15 +7,18 @@ const APP_SHELL_ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  './styles.css',
-  './lazy-loader.js',
-  './legal-content.js',
-  './pdf-engine.js',
-  './utility-engine.js',
-  './tools-catalog.js',
-  './app.js',
-  './icon-192.svg',
-  './icon-512.svg'
+  './css/styles.css',
+  './js/lazy-loader.js',
+  './js/legal-content.js',
+  './js/pdf-engine.js',
+  './js/utility-engine.js',
+  './js/tools-catalog.js',
+  './js/tool-guides.js',
+  './js/app.js',
+  './icons/icon-192.svg',
+  './icons/icon-512.svg',
+  './icons/icon-192.png',
+  './icons/icon-512.png'
 ];
 
 const CDN_LIBS = [

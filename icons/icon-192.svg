@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="ocLogo192Bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#065f46" />
+      <stop offset="100%" stop-color="#022c22" />
+    </linearGradient>
+    <linearGradient id="ocLogo192Cov" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="55%" stop-color="#e0821c" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+    <linearGradient id="ocLogo192Pg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f3e9d8" />
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="180" height="180" rx="42" fill="url(#ocLogo192Bg)" stroke="#e0821c" stroke-width="5" />
+  <polygon points="34,102 96,150 158,102 158,112 96,160 34,112" fill="#d97706" stroke="#fdfaf5" stroke-width="3" stroke-linejoin="round" />
+  <polygon points="38,93 96,138 154,93 154,105 96,150 38,105" fill="url(#ocLogo192Pg)" stroke="#064e3b" stroke-width="2.5" stroke-linejoin="round" />
+  <polygon points="96,34 134,63 134,101 96,130 34,82" fill="url(#ocLogo192Cov)" stroke="#fdfaf5" stroke-width="3.5" stroke-linejoin="round" />
+  <polygon points="134,63 114,82 134,101" fill="#fffbeb" stroke="#064e3b" stroke-width="2.5" stroke-linejoin="round" />
+  <rect x="46" y="64" width="84" height="34" rx="10" fill="#022c22" stroke="#fdfaf5" stroke-width="3" transform="rotate(-10 88 81)" />
+  <text x="88" y="89" text-anchor="middle" fill="#ffffff" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-weight="900" font-size="24" letter-spacing="2" transform="rotate(-10 88 81)">PDF</text>
+</svg>

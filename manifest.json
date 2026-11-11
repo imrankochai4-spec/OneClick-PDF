@@ -1,6 +1,6 @@
 {
-  "name": "All Online PDF Tools (AllOnlinePDFTools)",
-  "short_name": "AllOnlinePDFTools",
+  "name": "All Online PDF Tools",
+  "short_name": "All Online PDF Tools",
   "description": "100+ Free Client-Side Online PDF Tools, Image Studio, Shamsi/Hijri Date Converter & Calculators. Zero server uploads.",
   "start_url": "./index.html",
   "scope": "./",
@@ -11,13 +11,25 @@
   "categories": ["productivity", "utilities", "business"],
   "icons": [
     {
-      "src": "./icon-192.svg",
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icons/icon-192.svg",
       "sizes": "192x192",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     },
     {
-      "src": "./icon-512.svg",
+      "src": "./icons/icon-512.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"
